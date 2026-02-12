@@ -9,10 +9,12 @@ import javax.swing.JLabel;
 
 public class FrmJuego extends JFrame {
 
+    // variables de clase o globales
     Dado dado1, dado2;
     Random r;
-    JLabel lblDado1, lblDado2;
+    JLabel lblDado1, lblDado2, lblLanzamientos, lblCenas;
 
+    int lanzamientos, cenas;
 
     // metodo constructor
     public FrmJuego() {
@@ -39,7 +41,7 @@ public class FrmJuego extends JFrame {
         lblTituloLanzamientos.setHorizontalAlignment(JLabel.CENTER);
         add(lblTituloLanzamientos);
 
-        JLabel lblLanzamientos = new JLabel("0");
+        lblLanzamientos = new JLabel("0");
         lblLanzamientos.setBounds(30 + 2 * imgDado.getIconWidth(), 40, 100, 100);
         lblLanzamientos.setFont(new Font("Tahoma", Font.BOLD, 72));
         lblLanzamientos.setHorizontalAlignment(JLabel.RIGHT);
@@ -53,7 +55,7 @@ public class FrmJuego extends JFrame {
         lblTituloCenas.setHorizontalAlignment(JLabel.CENTER);
         add(lblTituloCenas);
 
-        JLabel lblCenas = new JLabel("0");
+        lblCenas = new JLabel("0");
         lblCenas.setBounds(140 + 2 * imgDado.getIconWidth(), 40, 100, 100);
         lblCenas.setFont(new Font("Tahoma", Font.BOLD, 72));
         lblCenas.setHorizontalAlignment(JLabel.RIGHT);
@@ -79,13 +81,17 @@ public class FrmJuego extends JFrame {
             lanzar();
         });
 
-        dado1 =new Dado();
-        dado2 =new Dado();
+        dado1 = new Dado();
+        dado2 = new Dado();
         r = new Random();
-        
+
     }
 
     private void iniciar() {
+        lanzamientos = 0;
+        lblLanzamientos.setText(String.valueOf(lanzamientos));
+        cenas = 0;
+        lblCenas.setText(String.valueOf(cenas));
     }
 
     private void lanzar() {
@@ -93,6 +99,15 @@ public class FrmJuego extends JFrame {
         dado2.lanzar(r);
         dado1.mostrar(lblDado1);
         dado2.mostrar(lblDado2);
+
+        lanzamientos++;
+        lblLanzamientos.setText(String.valueOf(lanzamientos));
+
+        if (dado1.getNumero() + dado2.getNumero() >= 11) {
+            cenas++;
+            lblCenas.setText(String.valueOf(cenas));
+        }
+
     }
 
 }
